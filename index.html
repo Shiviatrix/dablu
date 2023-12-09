@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heart Forming Animation</title>
+  <title>Heart Drawing</title>
   <style>
     body {
       margin: 0;
@@ -34,8 +34,6 @@
     ];
 
     function drawHeart() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       ctx.beginPath();
       ctx.moveTo(heartPath[0].x, heartPath[0].y);
 
@@ -48,27 +46,7 @@
       ctx.stroke();
     }
 
-    function animateHeartFormation() {
-      let t = 0;
-
-      function update() {
-        if (t <= 1.0) {
-          heartPath[1].x = canvas.width / 4 + Math.sin(t * Math.PI) * 50;
-          heartPath[2].x = canvas.width / 2 + Math.sin(t * Math.PI) * 50;
-          heartPath[3].x = (3 * canvas.width) / 4 + Math.sin(t * Math.PI) * 50;
-
-          drawHeart();
-
-          t += 0.01;
-
-          requestAnimationFrame(update);
-        }
-      }
-
-      update();
-    }
-
-    animateHeartFormation();
+    drawHeart();
   </script>
 </body>
 </html>
