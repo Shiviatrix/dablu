@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Forming Animation</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #f0f0f0;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="heartCanvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const heartPath = [
+      { x: canvas.width / 2, y: canvas.height / 4 },
+      { x: canvas.width / 4, y: canvas.height / 2 },
+      { x: canvas.width / 2, y: (3 * canvas.height) / 4 },
+      { x: (3 * canvas.width) / 4, y: canvas.height / 2 },
+    ];
+
+    function drawHeart() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.beginPath();
+      ctx.moveTo(heartPath[0].x, heartPath[0].y);
+
+      for (let i = 1; i < heartPath.length; i++) {
+        ctx.lineTo(heartPath[i].x, heartPath[i].y);
+      }
+
+      ctx.closePath();
+      ctx.strokeStyle = '#ff0000';
+      ctx.stroke();
+    }
+
+    function animateHeartFormation() {
+      let t = 0;
+
+      function update() {
+        if (t <= 1.0) {
+          heartPath[1].x = canvas.width / 4 + Math.sin(t * Math.PI) * 50;
+          heartPath[2].x = canvas.width / 2 + Math.sin(t * Math.PI) * 50;
+          heartPath[3].x = (3 * canvas.width) / 4 + Math.sin(t * Math.PI) * 50;
+
+          drawHeart();
+
+          t += 0.01;
+
+          requestAnimationFrame(update);
+        }
+      }
+
+      update();
+    }
+
+    animateHeartFormation();
+  </script>
+</body>
+</html>
